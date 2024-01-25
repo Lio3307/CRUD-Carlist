@@ -34,7 +34,7 @@ $daftar = mysqli_fetch_array($result);
     $brg = $daftar['nmbrg'];
     $hrg = $daftar['hrga'];
     $date = $daftar['date'];
-    $com = $_POST['company'];
+    $com = $daftar['company'];
     $foto = $daftar['foto'];
 ?>
 
@@ -75,7 +75,7 @@ $daftar = mysqli_fetch_array($result);
 <div class="mb-3">
   <label for="formFile" class="form-label">Pilih Foto</label>
   <input class="form-control" name="foto" type="file" id="formFile">
-  <img src="<?php echo $foto; ?>" alt="" width="140px" height="200px" />
+  <img src="<?php echo $foto; ?>" alt="" style="object-fit:cover;" width="400px" height="220px" />
 
   <input type="hidden" name="idbrg" value="<?php echo $idbrg; ?>" />
   <input type="submit" class="btn btn-danger" name="update" value="UPDATE" />

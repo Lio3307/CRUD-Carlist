@@ -4,19 +4,6 @@ include_once("connection.php");
 
 $data = mysqli_query($conect, "SELECT * FROM brg ");
 
-if (isset($_POST["submit"])) {
-  $brg = $_POST['nmbrg'];
-  $hrg = $_POST['hrga'];
-  $date = $_POST['date'];
-  $com = $_POST['company'];
-
-  // Pengaturan untuk mengelola upload gambar
-  $upload_dir = "pict/"; // Direktori tempat menyimpan gambar
-  $upload_file = $upload_dir . basename($_FILES['foto']['name']);
-  move_uploaded_file($_FILES['foto']['tmp_name'], $upload_file);
-
-}
-
 ?>
 
 
@@ -25,7 +12,7 @@ if (isset($_POST["submit"])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <title>coba</title>
 </head>
@@ -67,24 +54,21 @@ if (isset($_POST["submit"])) {
 
 
 
-<div class="d-flex m-5">
+<div class="d-flex">
 <?php
         while($daftar = mysqli_fetch_array($data)){
         ?>
 <div class="card m-3" style="width: 18rem; display: flex;">
-  <img src="<?php echo $daftar['foto'] ?>" name="foto" class="card-img-top" style="object-fit:cover;" width="1200px" height="200px" alt="...">
+  <img src="<?php echo $daftar['foto'] ?>" name="foto" class="card-img-top" style="object-fit:cover;" width="120px" height="200px" alt="...">
   <div class="card-body">
     <h5 class="card-title" name="nmbrg"><?php echo $daftar['nmbrg']; ?></h5>
     <p class="card-text" name="hrga"><?php echo $daftar['hrga'] ?></p>
     <?php echo "<a href='edit.php?id=$daftar[idbrg]' class='btn btn-primary'>EDIT</a> <a href='del.php?id=$daftar[idbrg]' class='btn btn-danger'>DEL</a>";?>
     
-    <!-- Button modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Lihat
-</button>
-
+        <!-- Button modal -->
+    <?php echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop$daftar[idbrg]'>Lihat</button>";?>
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop<?php echo $daftar['idbrg']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -92,6 +76,7 @@ if (isset($_POST["submit"])) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      <img src="<?php echo $daftar['foto'] ?>" name="foto" class="card-img-top" style="object-fit:cover;" width="500px" height="240px">
         <h5 class="card-title">Harga</h5>
         <p class="card-text" name="hrga"><?php echo $daftar['hrga']?></p>
         <h5 class="card-title">Tahun Rilis</h5>
@@ -105,14 +90,12 @@ if (isset($_POST["submit"])) {
     </div>
   </div>
 </div>
-
     </div>
   </div>
-  </div>
-</div>
-        <?php
+  <?php
         }
-      ?>
+        ?>
+        </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
