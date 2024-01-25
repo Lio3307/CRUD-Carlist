@@ -1,3 +1,10 @@
+<?php
+session_start();
+require("connection.php");
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +15,52 @@
 </head>
 <body>
 
-<div class="input-group flex-nowrap">
-  <span class="input-group-text" id="addon-wrapping">@</span>
-  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
-</div>
+<h5 style="text-align: center;" class="mt-5">Login Form</h5>
+<div class="container d-flex justify-content-center mt-5">
+<form method="post">
+  <div class="mb-3 mt-5" >
+    <label for="exampleInputEmail1" class="form-label">Username</label>
+    <input type="text" name="user" style="width: 400px;" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" name="pass"  style="width: 400px;"  class="form-control" id="exampleInputPassword1">
+    <div class="form-text">Tidak memiliki akun? <a href="#">Klik Disini</a> </div>
+  </div>
+  <button type="submit" name="send" class="btn btn-primary">Submit</button>
+  </div>
 
-<label for="inputPassword5" class="form-label">Password</label>
-<input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-<div id="passwordHelpBlock" class="form-text">
-  Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-</div>
+  <?php
+        if (isset($_POST['send'])) {
+            $user = $_POST['user'];
+            $pass = $_POST['pass'];
+
+            $query = mysqli_query($conect, "SELECT * FROM formlogin WHERE user='$user' AND pass = '$pass'");
+            $countdata = mysqli_num_rows($query);
+            $data = mysqli_fetch_array($query);
+
+            if ($countdata > 0) {
+                if ($password == $data['pass']) {
+                    $_SESSION['user'] = $data['user'];
+                    $_SESSION['nama'] = $data['nama'];
+                    $_SESSION['login'] = true;
+                    $_SESSION['pass'] = $data['pass'];
+                    header('location:index.php');
+                } else {
+                    ?>
+                    <div class="alert alert-danger" role="alert">Password Salah!</div>
+                    <?php
+                }
+            } else {
+                ?>
+                <div class="alert alert-danger" role="alert">Data yang kamu masukan Salah!</div>
+                <?php
+            }
+        }
+        ?>
+</form>
+  
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
