@@ -4,6 +4,10 @@ include_once("connection.php");
 
 $data = mysqli_query($conect, "SELECT * FROM brg ");
 
+if (isset($_POST['submit'])) {
+    $brg = $_POST['keyword'];
+    $data= mysqli_query($conect, "SELECT * FROM brg WHERE NMBRG LIKE '%$brg%' ");
+}
 ?>
 
 
@@ -12,11 +16,13 @@ $data = mysqli_query($conect, "SELECT * FROM brg ");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="js/script.js"></script>
+  <script src="js/modal.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <title>coba</title>
 </head>
 <body>
+
+<!--Nav-->
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -37,23 +43,25 @@ $data = mysqli_query($conect, "SELECT * FROM brg ");
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="tambah.php">Tambah</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#">Register</a></li>
           </ul>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <form class="d-flex" role="search" method="post" action="">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+    <button class="btn btn-outline-success" type="submit" name="submit">Search</button>
+    </form>
+
+  
     </div>
   </div>
 </nav>
 
 
 
-
+<!--Card-->
 <div class="d-flex">
 <?php
         while($daftar = mysqli_fetch_array($data)){
