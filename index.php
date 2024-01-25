@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
         </li>
       </ul>
       <form class="d-flex" role="search" method="post" action="">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+    <input class="form-control me-2" type="search" placeholder="Search" autocomplete="off" aria-label="Search" name="keyword">
     <button class="btn btn-outline-success" type="submit" name="submit">Search</button>
     </form>
 
