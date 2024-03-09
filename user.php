@@ -1,6 +1,5 @@
 <?php
 require("connection.php");
-include('session.php');
 $data= mysqli_query($conect, "SELECT * FROM brg");
 
 if (isset($_POST['submit'])) {
@@ -22,14 +21,14 @@ if (isset($_POST['submit'])) {
 <body>
 
 <!--Nav-->
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
@@ -41,19 +40,18 @@ if (isset($_POST['submit'])) {
             Other
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="nonuser.php">Logout</a></li>
+            <li></li>
           </ul>
         </li>
       </ul>
-      <form class="d-flex" role="search" method="post" action="">
-    <input class="form-control me-2" type="search" placeholder="Search" autocomplete="off" aria-label="Search" name="keyword">
-    <button class="btn btn-outline-success" type="submit" name="submit">Search</button>
-    </form>
-
-  
+      <form class="d-flex" method="post" action="">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+        <button class="btn btn-light" type="submit" name="submit">Search</button>
+      </form>
     </div>
   </div>
 </nav>
+<!-- Nav End -->
 
 
 
@@ -67,7 +65,6 @@ if (isset($_POST['submit'])) {
   <div class="card-body">
     <h5 class="card-title" name="nmbrg"><?php echo $daftar['nmbrg']; ?></h5>
     <p class="card-text" name="hrga"><?php echo $daftar['hrga'] ?></p>
-    <?php echo "<a href='edit.php?id=$daftar[idbrg]' class='btn btn-primary'>EDIT</a> <a href='del.php?id=$daftar[idbrg]' class='btn btn-danger'>DEL</a>";?>
     
         <!-- Button modal -->
     <?php echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop$daftar[idbrg]'>Lihat</button>";?>
@@ -89,7 +86,10 @@ if (isset($_POST['submit'])) {
         <p class="card-text" name="company"><?php echo $daftar['company'] ?></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+</svg></button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

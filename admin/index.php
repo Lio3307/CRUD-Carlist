@@ -44,8 +44,6 @@ if (isset($_POST['submit'])) {
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="admin/tambah.php">Tambah</a></li>
             <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Register</a></li>
           </ul>
         </li>
       </ul>

@@ -13,58 +13,46 @@ require("connection.php");
 </head>
 <body>
 
-<h5 style="text-align: center;" class="mt-5">Login Form</h5>
-<div class="container d-flex justify-content-center mt-5">
-<form method="post">
-  <div class="mb-3 mt-5" >
-    <label for="exampleInputEmail1" class="form-label">Username</label>
-    <input type="text" name="username" style="width: 400px;" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" name="pass"  style="width: 400px;"  class="form-control" id="exampleInputPassword1">
-    <div class="form-text">Tidak memiliki akun? <a href="register.php">Klik Disini</a> </div>
-  </div>
-  <button type="submit" name="send" class="btn btn-primary">Submit</button>
-  </div>
-
-  <?php
-        if (isset($_POST['send'])) {
-            $user = $_POST['username'];
-            $pass = $_POST['pass'];
-
-            $query = mysqli_query($conect, "SELECT * FROM formlogin WHERE user='$user' AND pass = '$pass'");
-            $countdata = mysqli_num_rows($query);
-            $data = mysqli_fetch_array($query);
-
-            if ($countdata > 0) {
-                if ($pass == $data['pass']) {
-                    $_SESSION['nama'] = $data['user'];
-                    $_SESSION['username'] = $data['username'];
-                    $_SESSION['login'] = true;
-                    $_SESSION['pass'] = $data['pass'];
-                    header('location:user.php');
-
-                } if ($user == $data['username']) {
-                    $_SESSION['admin'] = $data['user'];
-                    $_SESSION['admin'] = $data['username'];
-                    $_SESSION['login'] = true;
-                    $_SESSION['admin123'] = $data['pass'];
-                    header('location:index.php');
-                }else {
-                    ?>
-                    <div class="alert alert-danger" role="alert">Password Username Salah!</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title text-center">Login Form</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Username</label>
+                            <input type="text" name="admin" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" name="adminpass" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <button type="submit" name="send" class="btn btn-primary">Submit</button>
+                    </form>
                     <?php
-                }
-            } else {
-                ?>
-                <div class="alert alert-danger" role="alert">Data yang kamu masukan Salah!</div>
-                <?php
-            }
-        }
-        ?>
-</form>
-  
+                    if (isset($_POST['send'])) {
+                        $user = $_POST['admin'];
+                        $pass = $_POST['adminpass'];
+
+                        if ($user === "admintes123" && $pass === "admin123") {
+                            $_SESSION['admin'] = $user;
+                            $_SESSION['login'] = true;
+                            header('location:index.php');
+                        } else {
+                            ?>
+                            <div class="alert alert-danger mt-3" role="alert">Username atau Password salah!</div>
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
